@@ -1,11 +1,11 @@
 {
-    "name": "rabab",
-    "short_name": "rabab",
+    "name": "رباب",
+    "short_name": "رباب",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FFD3E0",
+    "theme_color": "#FF5C8A",
+    "description": "هدية خاصة لرباب",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:flutter/foundation.dart';
 
@@ -11,6 +13,7 @@ class MusicService {
   static final MusicService instance = MusicService._();
 
   final AudioPlayer _player = AudioPlayer();
+  final Random _random = Random();
   int _currentIndex = 0;
 
   final ValueNotifier<bool> isPlaying = ValueNotifier(false);
@@ -75,7 +78,14 @@ class MusicService {
 
   Future<void> _playNext({required bool auto}) async {
     if (songs.isEmpty) return;
-    final nextIndex = (_currentIndex + 1) % songs.length;
+    if (songs.length == 1) {
+      await play(_currentIndex);
+      return;
+    }
+    var nextIndex = _currentIndex;
+    while (nextIndex == _currentIndex) {
+      nextIndex = _random.nextInt(songs.length);
+    }
     await play(nextIndex);
   }
 }

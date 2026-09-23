@@ -36,18 +36,35 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
-              child: SafeArea(
-                child: Center(
-                  child: SingleChildScrollView(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-                    child: Column(
-                      children: [
-                        const _Header(),
-                        const SizedBox(height: 28),
-                        const PhotoCarousel(),
-                      ],
-                    ),
+child: SafeArea(
+                child: Padding(
+                  // مساحة محجوزة حتى لا يغطي زر الموسيقى الصور
+                  padding: const EdgeInsets.only(bottom: 96),
+                  child: LayoutBuilder(
+                    builder: (context, constraints) {
+                      final h = constraints.maxHeight;
+                      final headerH = h * 0.40;
+                      return Column(
+                        children: [
+                          SizedBox(
+                            height: headerH,
+                            child: FittedBox(
+                              fit: BoxFit.scaleDown,
+                              alignment: Alignment.topCenter,
+                              child: const _Header(),
+                            ),
+                          ),
+                          SizedBox(height: 8),
+                          Expanded(
+                            child: Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20),
+                              child: const PhotoCarousel(),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
                   ),
                 ),
               ),
@@ -79,76 +96,98 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const _BeatingHeart(),
-        const SizedBox(height: 16),
-        ShaderMask(
-          shaderCallback: (bounds) => const LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFFFFD3E0),
-              Color(0xFFFF5C8A),
-              Color(0xFFB71C1C),
-            ],
-          ).createShader(bounds),
-          blendMode: BlendMode.srcIn,
-          child: Text(
-            'رباب',
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: 'ArefRuqaa',
-              fontSize: 84,
-              letterSpacing: 2,
-              color: Colors.white,
-              shadows: [
-                Shadow(
-                  color: const Color(0xFFD81B60).withValues(alpha: 0.45),
-                  blurRadius: 22,
-                ),
-                Shadow(
-                  color: const Color(0xFFFF5C8A).withValues(alpha: 0.6),
-                  blurRadius: 40,
-                ),
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          const _BeatingHeart(size: 52),
+          const SizedBox(height: 6),
+          ShaderMask(
+            shaderCallback: (bounds) => const LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Color(0xFFFFD3E0),
+                Color(0xFFFF5C8A),
+                Color(0xFFB71C1C),
               ],
+            ).createShader(bounds),
+            blendMode: BlendMode.srcIn,
+            child: Text(
+              'رباب',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: 'ArefRuqaa',
+                fontSize: 64,
+                letterSpacing: 2,
+                color: Colors.white,
+                shadows: [
+                  Shadow(
+                    color: const Color(0xFFD81B60).withValues(alpha: 0.45),
+                    blurRadius: 18,
+                  ),
+                  Shadow(
+                    color: const Color(0xFFFF5C8A).withValues(alpha: 0.6),
+                    blurRadius: 34,
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-        const SizedBox(height: 16),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-          decoration: BoxDecoration(
-            color: Colors.white.withValues(alpha: 0.55),
-            borderRadius: BorderRadius.circular(28),
+          const SizedBox(height: 8),
+          Container(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 16,
+              vertical: 7,
+            ),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.55),
+              borderRadius: BorderRadius.circular(28),
+            ),
+            child: const Text(
+              'هدية خاصة لكِ 🎀',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 15,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF88004F),
+              ),
+            ),
           ),
-          child: const Text(
-            'هدية خاصة لكِ 🎀',
+          const SizedBox(height: 8),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20),
+            child: const Text(
+              'إهداء إلى أجمل باش مهندسة',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontSize: 13,
+                height: 1.4,
+                color: Color(0xFF8E1E4B),
+              ),
+            ),
+          ),
+          const SizedBox(height: 6),
+          const Text(
+            'نجكلي من هنا لعند طبرق',
             textAlign: TextAlign.center,
             style: TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.w600,
-              color: Color(0xFF88004F),
+              fontSize: 16,
+              fontWeight: FontWeight.bold,
+              fontStyle: FontStyle.italic,
+              color: Color(0xFFC2185B),
             ),
           ),
-        ),
-        const SizedBox(height: 14),
-        const Text(
-          'كل لحظة معكِ أجمل من أي زهور.. هذه الصور تذكار جميل لما يملأ قلبي بكِ',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 15,
-            height: 1.6,
-            color: Color(0xFF8E1E4B),
-          ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }
 
 class _BeatingHeart extends StatefulWidget {
-  const _BeatingHeart();
+  const _BeatingHeart({this.size = 64});
+
+  final double size;
 
   @override
   State<_BeatingHeart> createState() => _BeatingHeartState();
@@ -188,12 +227,12 @@ class _BeatingHeartState extends State<_BeatingHeart>
           scale: 1.0 + 0.3 * t,
           child: Icon(
             Icons.favorite_rounded,
-            size: 64,
+            size: widget.size,
             color: color,
             shadows: [
               Shadow(
                 color: color.withValues(alpha: 0.55),
-                blurRadius: 16 + 14 * t,
+                blurRadius: 16 * widget.size / 64 + 14 * t,
               ),
             ],
           ),

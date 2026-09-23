@@ -51,8 +51,7 @@ class _PhotoCarouselState extends State<PhotoCarousel> {
     }
     return Column(
       children: [
-        SizedBox(
-          height: 420,
+        Expanded(
           child: PageView.builder(
             controller: _controller,
             itemCount: null, // دوران لا نهائي في اتجاه واحد
@@ -66,7 +65,7 @@ class _PhotoCarouselState extends State<PhotoCarousel> {
             },
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 10),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
